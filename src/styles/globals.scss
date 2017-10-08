@@ -1,0 +1,20 @@
+@import "colors";
+/* GLOBAL */
+body {
+    background-image: url('https://filmdaily.co/wp-content/uploads/2017/06/the-villainess.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-size: 4rem;
+    min-height: 100vh;
+    overflow: hidden;
+    text-align: center;
+    mix-blend-mode: overlay;
+    background-blend-mode: lighten;
+    font-family: 'Lobster', cursive;
+}
+
+h1 {
+    border: 0.125em solid;
+    display: inline-block;
+    padding: 0.25em;
+}
