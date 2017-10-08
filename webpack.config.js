@@ -20,50 +20,56 @@ module.exports = {
     },
     module: {
         loaders: [{
-            test: /\.js$/,
-            loader: 'babel-loader',
-            include: path.join(__dirname, 'src')
-        }, {
-            test: /\.(css|scss|sass)$/,
-            // loader: ETP.extract('style-loader', 'css-loader!sass-loader'),
-            loader: ETP.extract({
-                fallback: 'style-loader',
-                use: 'css-loader!postcss-loader!sass-loader'
-            }),
-            include: path.join(__dirname, 'src')
-        }, {
-            test: /\.(jpe?g|png|gif|svg)$/,
-            loader: 'srcset-loader',
-            options: {
-                sizes: ['200w', '320w', '420w', '512w', '640w', '720w', '800w', '960w', '1024w', '1166w', '1280w', '1400w'],
-            },
-            loader: 'file-loader',
-            options: {
-                hash: 'sha512',
-                digest: 'hex',
-                outputPath: './images/',
-                name: '[name].[hash].[ext]',
-            },
-            loader: 'image-webpack-loader',
-            options: {
-                mozjpeg: {
-                    quality: 65,
-                },
-                pngquant: {
-                    quality: '65-90',
-                    speed: 4,
-                },
-                svgo: {
-                    plugins: [{
-                        removeViewBox: false,
-                    }, {
-                        removeEmptyAttrs: false,
-                    }],
-                }
+                test: /\.js$/,
+                loader: 'babel-loader',
+                include: path.join(__dirname, 'src')
+            }, {
+                test: /\.(css|scss|sass)$/,
+                // loader: ETP.extract('style-loader', 'css-loader!sass-loader'),
+                loader: ETP.extract({
+                    fallback: 'style-loader',
+                    use: 'css-loader!postcss-loader!sass-loader'
+                }),
+                include: path.join(__dirname, 'src')
+            }, {
+                test: /\.(eot|svg|ttf|woff|woff2)$/,
+                loader: 'file?name=public/fonts/[name].[ext]'
             },
 
-            include: path.join(__dirname, 'src')
-        }]
+            {
+                test: /\.(jpe?g|png|gif|svg)$/,
+                loader: 'srcset-loader',
+                options: {
+                    sizes: ['200w', '320w', '420w', '512w', '640w', '720w', '800w', '960w', '1024w', '1166w', '1280w', '1400w'],
+                },
+                loader: 'file-loader',
+                options: {
+                    hash: 'sha512',
+                    digest: 'hex',
+                    outputPath: './images/',
+                    name: '[name].[hash].[ext]',
+                },
+                loader: 'image-webpack-loader',
+                options: {
+                    mozjpeg: {
+                        quality: 65,
+                    },
+                    pngquant: {
+                        quality: '65-90',
+                        speed: 4,
+                    },
+                    svgo: {
+                        plugins: [{
+                            removeViewBox: false,
+                        }, {
+                            removeEmptyAttrs: false,
+                        }],
+                    }
+                },
+
+                include: path.join(__dirname, 'src')
+            }
+        ]
     },
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
@@ -85,6 +91,10 @@ module.exports = {
             title: 'Project Demo_index',
             inject: 'body',
             excludeChunks: ['about'],
+            minify: {
+                removeComments: true,
+                collapseWhitespace: true
+            },
             filename: 'index.html'
         }),
         new HtmlWebpackPlugin({
@@ -92,6 +102,10 @@ module.exports = {
             title: 'Project Demo_about',
             inject: 'body',
             excludeChunks: ['home'],
+            minify: {
+                removeComments: true,
+                collapseWhitespace: true
+            },
             filename: './about/index.html'
         }),
         new webpack.HotModuleReplacementPlugin(),
@@ -108,6 +122,9 @@ module.exports = {
         new PurifyCSSPlugin({
             // Give paths to parse for rules. These should be absolute!
             paths: glob.sync(path.join(__dirname, 'src/*.html')),
+            purifyOptions: {
+                minify: true
+            }
         })
     ]
 };
