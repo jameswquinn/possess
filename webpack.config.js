@@ -14,7 +14,7 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: '[name].bundle.js?[hash]'
+    filename: './assets/scripts/[name].bundle.js?[hash]'
   },
   module: {
     loaders: [
@@ -34,7 +34,7 @@ module.exports = {
       },
       {
         test: /\.(png|jpg)$/,
-        loader: 'file-loader', 
+        loader: 'file-loader',
         include: path.join(__dirname, 'src')
       }
     ]
@@ -74,7 +74,7 @@ module.exports = {
 
     // new ETP('styles.css'),
     new ETP({
-      filename: '[name].styles.css?[hash]',
+      filename: './assets/css/[name].styles.css?[hash]',
       allChunks: true
     }),
   ]
