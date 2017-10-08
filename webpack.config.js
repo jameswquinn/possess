@@ -32,7 +32,7 @@ module.exports = {
             }),
             include: path.join(__dirname, 'src')
         }, {
-            test: /\.(png|jpg)$/,
+            test: /\.(jpe?g|png|gif|svg)$/,
             loader: 'srcset-loader',
             options: {
                 sizes: ['200w', '320w', '420w', '512w', '640w', '720w', '800w', '960w', '1024w', '1166w', '1280w', '1400w'],
